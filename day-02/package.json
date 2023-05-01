@@ -1,0 +1,7 @@
+{
+  "name": "day-02",
+  "version": "1.0.0",
+  "main": "01.js",
+  "license": "MIT",
+  "type": "module"
+}
