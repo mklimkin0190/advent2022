@@ -1,12 +1,12 @@
-import * as fs from 'fs/promises';
+import * as fs from 'fs/promises'
 
 export const fileToRounds = (path: string): Promise<string[]> =>
   fs.readFile(path, { encoding: 'utf8' })
-    .then(data => data.split('\n'));
+    .then(data => data.split('\n'))
 
-export const LOSS = 0;
-export const DRAW = 3;
-export const WIN = 6;
+export const LOSS = 0
+export const DRAW = 3
+export const WIN = 6
 
 export const SHAPES = {
   A: 1,

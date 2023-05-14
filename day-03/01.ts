@@ -1,13 +1,9 @@
-import * as fs from 'fs/promises';
-
-export const fileToRucksacks = (path: string): Promise<string[]> =>
-  fs.readFile(path, { encoding: 'utf8' })
-    .then(data => data.split('\n'));
+import { fileToRucksacks, itemPriority } from './shared.ts'
 
 const findDuplicateInRucksack = (rucksack: string): string => {
-  const rucksackContents = rucksack.split('');
-  let firstCompartment = [];
-  let duplicate = null;
+  const rucksackContents = rucksack.split('')
+  let firstCompartment = []
+  let duplicate = null
   rucksackContents.forEach(
     (item: string, index: number) => {
       if (index <= (rucksackContents.length / 2) - 1) {
@@ -22,13 +18,8 @@ const findDuplicateInRucksack = (rucksack: string): string => {
   return duplicate
 }
 
-const itemPriority = (item: string): number => {
-  const charCodeShift = item.match(/[a-z]/) ? 96 : 38
-  return item.charCodeAt(0) - charCodeShift
-}
-
 const run = async () => {
-  const rucksacks = await fileToRucksacks('./input');
+  const rucksacks = await fileToRucksacks('./input')
   const result = rucksacks.reduce(
     (acc: number, curr: string) => {
       const duplicate = findDuplicateInRucksack(curr)
