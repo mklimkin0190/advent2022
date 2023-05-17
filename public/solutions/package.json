@@ -1,0 +1,16 @@
+{
+  "name": "advent2022",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:mklimkin0190/advent2022.git",
+  "author": "Masha Klimkin <mklimkina@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.1.0",
+    "@typescript-eslint/eslint-plugin": "^5.59.5",
+    "@typescript-eslint/parser": "^5.59.5",
+    "eslint": "^8.39.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5"
+  }
+}
