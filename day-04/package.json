@@ -1,0 +1,7 @@
+{
+  "name": "day-04",
+  "version": "1.0.0",
+  "main": "01.ts",
+  "license": "MIT",
+  "type": "module"
+}
