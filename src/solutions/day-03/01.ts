@@ -1,4 +1,4 @@
-import { fileToRucksacks, itemPriority } from './shared.ts'
+import { itemPriority } from './shared.ts'
 
 const findDuplicateInRucksack = (rucksack: string): string => {
   const rucksackContents = rucksack.split('')
@@ -18,8 +18,8 @@ const findDuplicateInRucksack = (rucksack: string): string => {
   return duplicate
 }
 
-const run = async () => {
-  const rucksacks = await fileToRucksacks('./input')
+export const run = async (rucksacks: string[]) => {
+  // const rucksacks = await fileToRucksacks('./input')
   const result = rucksacks.reduce(
     (acc: number, curr: string) => {
       const duplicate = findDuplicateInRucksack(curr)
@@ -29,5 +29,3 @@ const run = async () => {
   )
   console.log(result)
 }
-
-await run()

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import * as fs from 'fs'
 
 const Window = styled.div`
   position: absolute;
@@ -45,21 +44,50 @@ const SidebarLine = styled.li<{ active: boolean }>`
   }
 `
 
+const Title = styled.h2`
+  margin: 0 0 12px 0;
+`
+
+const TextArea = styled.textarea`
+  width: 100%;
+  height: 500px;
+  margin-bottom: 12px;
+`
+
+const Text = styled.p`
+  margin-bottom: 8px;
+`
+
+const Button = styled.button`
+  margin-bottom: 8px;
+`
+
 const DAYS = [1, 2, 3, 4]
 
 const loadDayInput = async (dayNum: number): Promise<string> =>
-  fetch(`${process.env.PUBLIC_URL}/solutions/day-0${dayNum}/input.txt`).then(response => response.text())
+  fetch(`${process.env.PUBLIC_URL}/inputs/input${dayNum}.txt`).then(response => response.text())
 
-const renderDayContent = (dayNum: number, dayInput: string) => {
+const execute = (dayNum: number, part: number, input: string[]) =>
+  import(`./solutions/day-0${dayNum}/0${part}.ts`)
+    .then(({ run }) => run(input))
+    // TODO: fix for day 1 (it was .split("\n\n") instead of .split("\n"))
+
+const renderDayContent = (dayNum: number, dayInput: string, execute: (dayNum: number, part: number, input: string[]) => void) => {
   if (!dayNum) {
     return 'Please select a day on the left!'
   }
   return (
     <>
-      <>{`Day ${dayNum} selected`}</>
-      <div>
-        <textarea value={dayInput}></textarea>
-      </div>
+      <Title>{`Day ${dayNum}`}</Title>
+      {dayInput && (
+        <>
+          <Text>Input:</Text>
+          <TextArea value={dayInput}></TextArea>
+          <Button onClick={() => execute(dayNum, 1, dayInput.split('\n'))}>Run part 1</Button>
+          <br />
+          <Button onClick={() => execute(dayNum, 2, dayInput.split('\n'))}>Run part 2</Button>
+        </>
+      )}
     </>
   )
 }
@@ -93,7 +121,7 @@ const App = () => {
           )
         })}
       </Sidebar>
-      <Content>{renderDayContent(activeDay, dayInput)}</Content>
+      <Content>{renderDayContent(activeDay, dayInput, execute)}</Content>
     </Window>
   )
 }

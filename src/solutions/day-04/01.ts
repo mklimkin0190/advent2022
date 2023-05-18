@@ -1,7 +1,5 @@
-import { fileToPairs } from './shared.ts'
-
-const run = async () => {
-  const pairs: string[][] = await fileToPairs('./input') // [['4-90','1-4'],['79-94','80-81'],...]
+export const run = async (lines: string[]) => {
+  const pairs: string[][] = lines.map(line => line.split(',')) // [['4-90','1-4'],['79-94','80-81'],...]
   const numFullyContain = pairs.reduce((acc: number, pair: string[]) => {
     const frstRange = pair[0].split('-') // [4, 90]
     const scndRange = pair[1].split('-') // [1, 4]
@@ -15,5 +13,3 @@ const run = async () => {
   }, 0)
   console.log(numFullyContain)
 }
-
-await run()

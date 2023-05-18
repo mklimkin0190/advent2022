@@ -1,4 +1,4 @@
-import { fileToRounds, LOSS, DRAW, WIN, SHAPES, OUTCOMES } from './shared.ts'
+import { LOSS, DRAW, WIN, SHAPES, OUTCOMES } from './shared.ts'
 
 const calculateMyShape = (opponentsShape: number, outcome: number): number => {
   switch (outcome) {
@@ -11,8 +11,8 @@ const calculateMyShape = (opponentsShape: number, outcome: number): number => {
   }
 }
 
-const run = async () => {
-  const rounds = await fileToRounds('./input')
+export const run = async (rounds: string[]) => {
+  // const rounds = await fileToRounds('./input')
   const total = rounds.reduce((acc: number, curr: string) => {
     const [opponentsShapeKey, outcomeKey] = curr.split(' ')
     const opponentsShape = SHAPES[opponentsShapeKey]
@@ -22,5 +22,3 @@ const run = async () => {
   }, 0)
   console.log(total)
 }
-
-await run()

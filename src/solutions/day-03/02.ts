@@ -1,4 +1,4 @@
-import { fileToRucksacks, itemPriority } from './shared.ts'
+import { itemPriority } from './shared.ts'
 
 const findBadgeForGroup = (rucksacks: string[]): string =>
   rucksacks[0].split('').reduce(
@@ -26,10 +26,8 @@ const findAllBadges = (rucksacks: string[]) => {
   }, 0)
 }
 
-const run = async () => {
-  const rucksacks = await fileToRucksacks('./input')
+export const run = async (rucksacks: string[]) => {
+  // const rucksacks = await fileToRucksacks('./input')
   const sum = findAllBadges(rucksacks)
   console.log(sum)
 }
-
-await run()

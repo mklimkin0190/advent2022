@@ -1,7 +1,6 @@
-import { fileToArray, sumFor } from './shared.ts'
+import { sumFor } from './shared.ts'
 
-const run = async (): Promise<void> => {
-  const input: string[] = await fileToArray('./input')
+export const run = async (input: string[]): Promise<void> => {
   const maxElf: number = input.reduce(
     (currMaxElf: number, currElf: string) => {
       const sum = sumFor(currElf)
@@ -11,5 +10,3 @@ const run = async (): Promise<void> => {
   )
   console.log(maxElf)
 }
-
-await run()

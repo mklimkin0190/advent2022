@@ -20,5 +20,6 @@
         "semi": ["error", "never"],
         "import/extensions": ["warn", "ignorePackages"],
         "no-console": "off"
-    }
+    },
+    "ignorePatterns": ["*.js", "**/*.js"]
 }
