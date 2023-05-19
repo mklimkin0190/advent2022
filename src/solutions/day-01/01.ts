@@ -1,7 +1,8 @@
-import { sumFor } from './shared.ts'
+import { groupInputByElf, sumFor } from './shared.ts'
 
 export const run = async (input: string[]): Promise<void> => {
-  const maxElf: number = input.reduce(
+  const inputByElf = groupInputByElf(input)
+  const maxElf: number = inputByElf.reduce(
     (currMaxElf: number, currElf: string) => {
       const sum = sumFor(currElf)
       return sum > currMaxElf ? sum : currMaxElf
