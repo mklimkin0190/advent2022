@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import styled from 'styled-components'
+import _ from 'lodash'
 
 const Window = styled.div`
   position: absolute;
@@ -64,37 +65,40 @@ const Button = styled.button`
 
 const DAYS = [1, 2, 3, 4]
 
-const loadDayInput = async (dayNum: number): Promise<string> =>
-  fetch(`${process.env.PUBLIC_URL}/inputs/input${dayNum}.txt`).then(response => response.text())
-
-const execute = (dayNum: number, part: number, input: string[]) =>
-  import(`./solutions/day-0${dayNum}/0${part}.ts`)
-    .then(({ run }) => run(input))
-    // TODO: fix for day 1 (it was .split("\n\n") instead of .split("\n"))
-
-const renderDayContent = (dayNum: number, dayInput: string, execute: (dayNum: number, part: number, input: string[]) => void) => {
-  if (!dayNum) {
-    return 'Please select a day on the left!'
-  }
-  return (
-    <>
-      <Title>{`Day ${dayNum}`}</Title>
-      {dayInput && (
-        <>
-          <Text>Input:</Text>
-          <TextArea value={dayInput}></TextArea>
-          <Button onClick={() => execute(dayNum, 1, dayInput.split('\n'))}>Run part 1</Button>
-          <br />
-          <Button onClick={() => execute(dayNum, 2, dayInput.split('\n'))}>Run part 2</Button>
-        </>
-      )}
-    </>
-  )
-}
-
 const App = () => {
   const [activeDay, setActiveDay] = useState<number>(null)
   const [dayInput, setDayInput] = useState<string>(null)
+
+  const loadDayInput = useCallback(async (dayNum: number): Promise<string> =>
+    fetch(`${process.env.PUBLIC_URL}/inputs/input${dayNum}.txt`).then(response => response.text()),
+    []
+  )
+
+  const execute = useCallback((dayNum: number, part: number, input: string[]) =>
+    import(`./solutions/day-0${dayNum}/${part}.ts`)
+      .then(({ run }) => run(input)),
+    []
+  )
+
+  const renderDayContent = useCallback(() => {
+    if (!activeDay) {
+      return 'Please select a day on the left!'
+    }
+    return (
+      <>
+        <Title>{`Day ${activeDay}`}</Title>
+        {!_.isNil(dayInput) && (
+          <>
+            <Text>Input:</Text>
+            <TextArea value={dayInput} onChange={(event) => setDayInput(event.target.value)}></TextArea>
+            <Button onClick={() => execute(activeDay, 1, dayInput.split('\n'))}>Run part 1</Button>
+            <br />
+            <Button onClick={() => execute(activeDay, 2, dayInput.split('\n'))}>Run part 2</Button>
+          </>
+        )}
+      </>
+    )
+  }, [activeDay, dayInput, execute])
 
   useEffect(() => {
     if (!activeDay) {
@@ -104,7 +108,11 @@ const App = () => {
       .then((dayInput) => {
         setDayInput(dayInput)
       })
-  }, [activeDay])
+  }, [activeDay, loadDayInput])
+
+  useEffect(() => {
+    console.log('day input changed')
+  }, [dayInput])
 
   return (
     <Window>
@@ -121,7 +129,7 @@ const App = () => {
           )
         })}
       </Sidebar>
-      <Content>{renderDayContent(activeDay, dayInput, execute)}</Content>
+      <Content>{renderDayContent()}</Content>
     </Window>
   )
 }
