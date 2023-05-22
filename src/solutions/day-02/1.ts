@@ -18,8 +18,8 @@ const calculateRoundScore = (opponentsShape: number, myShape: number): number =>
   return outcome + myShape
 }
 
-export const run = async (rounds: string[]) => {
-  // const rounds = await fileToRounds('./input')
+export const run = (input: string) => {
+  const rounds = input.split('\n')
   const total = rounds.reduce((acc: number, curr: string) => {
     const [opponentsShape, myShape] = curr.split(' ').map((key: string) => SHAPES[key])
     return acc + calculateRoundScore(opponentsShape, myShape)

@@ -1,7 +1,7 @@
 import { sumFor } from './shared.ts'
 
-export const run = async (input: string[]): Promise<void> => {
-  const maxThree: number[] = input.reduce(
+export const run = (input: string) => {
+  const maxThree: number[] = input.split('\n\n').reduce(
     (currMaxThree: number[], currElf: string) => {
       const [first, second, third]: number[] = currMaxThree
       const currSum: number = sumFor(currElf)

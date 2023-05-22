@@ -18,8 +18,8 @@ const findDuplicateInRucksack = (rucksack: string): string => {
   return duplicate
 }
 
-export const run = async (rucksacks: string[]) => {
-  // const rucksacks = await fileToRucksacks('./input')
+export const run = (input: string)=> {
+  const rucksacks = input.split('\n')
   const result = rucksacks.reduce(
     (acc: number, curr: string) => {
       const duplicate = findDuplicateInRucksack(curr)

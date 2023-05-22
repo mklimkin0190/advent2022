@@ -26,8 +26,8 @@ const findAllBadges = (rucksacks: string[]) => {
   }, 0)
 }
 
-export const run = async (rucksacks: string[]) => {
-  // const rucksacks = await fileToRucksacks('./input')
+export const run = (input: string) => {
+  const rucksacks = input.split('\n')
   const sum = findAllBadges(rucksacks)
   console.log(sum)
 }

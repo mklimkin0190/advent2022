@@ -11,8 +11,8 @@ const calculateMyShape = (opponentsShape: number, outcome: number): number => {
   }
 }
 
-export const run = async (rounds: string[]) => {
-  // const rounds = await fileToRounds('./input')
+export const run = (input: string) => {
+  const rounds = input.split('\n')
   const total = rounds.reduce((acc: number, curr: string) => {
     const [opponentsShapeKey, outcomeKey] = curr.split(' ')
     const opponentsShape = SHAPES[opponentsShapeKey]

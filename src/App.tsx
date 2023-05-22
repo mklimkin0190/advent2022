@@ -74,7 +74,7 @@ const App = () => {
     []
   )
 
-  const execute = useCallback((dayNum: number, part: number, input: string[]) =>
+  const execute = useCallback((dayNum: number, part: number, input: string) =>
     import(`./solutions/day-0${dayNum}/${part}.ts`)
       .then(({ run }) => run(input)),
     []
@@ -91,9 +91,9 @@ const App = () => {
           <>
             <Text>Input:</Text>
             <TextArea value={dayInput} onChange={(event) => setDayInput(event.target.value)}></TextArea>
-            <Button onClick={() => execute(activeDay, 1, dayInput.split('\n'))}>Run part 1</Button>
+            <Button onClick={() => execute(activeDay, 1, dayInput)}>Run part 1</Button>
             <br />
-            <Button onClick={() => execute(activeDay, 2, dayInput.split('\n'))}>Run part 2</Button>
+            <Button onClick={() => execute(activeDay, 2, dayInput)}>Run part 2</Button>
           </>
         )}
       </>

@@ -1,4 +1,5 @@
-export const run = async (lines: string[]) => {
+export const run = async (input: string) => {
+  const lines = input.split('\n')
   const pairs: string[][] = lines.map(line => line.split(',')) // [['4-90','1-4'],['79-94','80-81'],...]
   const numFullyContain = pairs.reduce((acc: number, pair: string[]) => {
     const frstRange = pair[0].split('-') // [4, 90]
