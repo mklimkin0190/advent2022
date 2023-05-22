@@ -75,7 +75,7 @@ const App = () => {
   )
 
   const execute = useCallback((dayNum: number, part: number, input: string) =>
-    import(`./solutions/day-0${dayNum}/${part}.ts`)
+    import(`./solutions/day-${dayNum}/${part}.ts`)
       .then(({ run }) => run(input)),
     []
   )
