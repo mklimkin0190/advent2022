@@ -63,7 +63,7 @@ const Button = styled.button`
   margin-bottom: 8px;
 `
 
-const DAYS = [1, 2, 3, 4]
+const DAYS = [1, 2, 3, 4, 5]
 
 const App = () => {
   const [activeDay, setActiveDay] = useState<number>(null)
