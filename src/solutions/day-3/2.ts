@@ -29,5 +29,5 @@ const findAllBadges = (rucksacks: string[]) => {
 export const run = (input: string) => {
   const rucksacks = input.split('\n')
   const sum = findAllBadges(rucksacks)
-  console.log(sum)
+  return sum
 }

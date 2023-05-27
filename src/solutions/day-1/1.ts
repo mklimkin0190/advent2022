@@ -8,5 +8,5 @@ export const run = (input: string) => {
     },
     0
   )
-  console.log(maxElf)
+  return maxElf
 }

@@ -27,5 +27,5 @@ export const run = (input: string)=> {
     },
     0
   )
-  console.log(result)
+  return result
 }

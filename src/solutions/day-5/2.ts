@@ -10,11 +10,12 @@ export const run = (input: string) => {
     if (!amount || !from || !to) {
       return
     }
-    _.each(_.range(0, +amount), (time: number) => {
+    const substackToMove = _.reduce(_.range(0, +amount), (acc: string[], time: number) => {
       const [top, ...rest] = stacks[+from]
       stacks[+from] = rest
-      stacks[+to] = [top, ...stacks[+to]]
-    })
+      return [...acc, top]
+    }, [])
+    stacks[+to] = [...substackToMove, ...stacks[+to]]
   })
   const topCrates = listTopCrates(stacks)
   return topCrates.join('')

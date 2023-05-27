@@ -63,20 +63,25 @@ const Button = styled.button`
   margin-bottom: 8px;
 `
 
+const Result = styled.span`
+  margin-left: 12px;
+`
+
 const DAYS = [1, 2, 3, 4, 5]
 
 const App = () => {
   const [activeDay, setActiveDay] = useState<number>(null)
   const [dayInput, setDayInput] = useState<string>(null)
+  const [result, setResult] = useState<{ 1: string | number, 2: string | number }>({ 1: '', 2: '' })
 
   const loadDayInput = useCallback(async (dayNum: number): Promise<string> =>
     fetch(`${process.env.PUBLIC_URL}/inputs/input${dayNum}.txt`).then(response => response.text()),
     []
   )
 
-  const execute = useCallback((dayNum: number, part: number, input: string) =>
+  const execute = useCallback((dayNum: number, part: number, input: string, setResult: (result: string | number) => void) =>
     import(`./solutions/day-${dayNum}/${part}.ts`)
-      .then(({ run }) => run(input)),
+      .then(({ run }) => setResult(run(input))),
     []
   )
 
@@ -91,19 +96,22 @@ const App = () => {
           <>
             <Text>Input:</Text>
             <TextArea value={dayInput} onChange={(event) => setDayInput(event.target.value)}></TextArea>
-            <Button onClick={() => execute(activeDay, 1, dayInput)}>Run part 1</Button>
+            <Button onClick={() => execute(activeDay, 1, dayInput, (result1) => setResult({ 1: result1, 2: result[2] }))}>Run part 1</Button>
+            <Result>{result[1]}</Result>
             <br />
-            <Button onClick={() => execute(activeDay, 2, dayInput)}>Run part 2</Button>
+            <Button onClick={() => execute(activeDay, 2, dayInput, (result2) => setResult({ 1: result[1], 2: result2 }))}>Run part 2</Button>
+            <Result>{result[2]}</Result>
           </>
         )}
       </>
     )
-  }, [activeDay, dayInput, execute])
+  }, [activeDay, dayInput, execute, result])
 
   useEffect(() => {
     if (!activeDay) {
       return
     }
+    setResult({ 1: '', 2: '' })
     loadDayInput(activeDay)
       .then((dayInput) => {
         setDayInput(dayInput)

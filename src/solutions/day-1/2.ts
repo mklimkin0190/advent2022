@@ -19,5 +19,5 @@ export const run = (input: string) => {
     [0, 0, 0]
   )
   const maxThreeSum: number = maxThree.reduce((acc, curr) => acc + curr, 0)
-  console.log(maxThreeSum)
+  return maxThreeSum
 }

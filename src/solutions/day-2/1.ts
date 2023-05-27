@@ -24,5 +24,5 @@ export const run = (input: string) => {
     const [opponentsShape, myShape] = curr.split(' ').map((key: string) => SHAPES[key])
     return acc + calculateRoundScore(opponentsShape, myShape)
   }, 0)
-  console.log(total)
+  return total
 }

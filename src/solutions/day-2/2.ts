@@ -20,5 +20,5 @@ export const run = (input: string) => {
     const myShape = calculateMyShape(opponentsShape, outcome)
     return acc + outcome + myShape
   }, 0)
-  console.log(total)
+  return total
 }
