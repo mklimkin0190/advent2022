@@ -67,7 +67,7 @@ const Result = styled.span`
   margin-left: 12px;
 `
 
-const DAYS = [1, 2, 3, 4, 5]
+const DAYS = [1, 2, 3, 4, 5, 6]
 
 const App = () => {
   const [activeDay, setActiveDay] = useState<number>(null)
