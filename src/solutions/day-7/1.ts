@@ -1,5 +1,7 @@
 import { Node, newNode, buildFilesTree } from './shared.ts'
 
+const maxDirSize = 100000
+
 export const run = (input: string) => {
   const lines = input.split('\n')
   const filesTree: Node = {
@@ -9,9 +11,8 @@ export const run = (input: string) => {
     parent: null
   }
   const res = buildFilesTree(lines, filesTree, [])
-  const sorted = res.sort((a, b) => b - a)
   return res.reduce((sum: number, curr: number) => {
-    if (curr < 100000) {
+    if (curr < maxDirSize) {
       return sum + curr
     }
     return sum

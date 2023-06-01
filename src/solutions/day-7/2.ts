@@ -1,5 +1,8 @@
 import { Node, newNode, buildFilesTree } from './shared.ts'
 
+const totalSpace = 70000000
+const freeSpaceNeeded = 30000000
+
 export const run = (input: string) => {
   const lines = input.split('\n')
   const filesTree: Node = {
@@ -10,8 +13,8 @@ export const run = (input: string) => {
   }
   const res = buildFilesTree(lines, filesTree, [])
   const rootSize = filesTree.children[0].size
-  const freeSpace = 70000000 - rootSize
-  const needToFree = 30000000 - freeSpace
+  const freeSpace = totalSpace - rootSize
+  const needToFree = freeSpaceNeeded - freeSpace
   const sorted = res.sort((a, b) => b - a)
   let toDelete: number
   sorted.forEach((size: number) => {
